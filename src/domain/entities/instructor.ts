@@ -1,5 +1,5 @@
-class Instructor {
-    public title: string
+export class Instructor {
+  public title: string
   public content: string
 
   constructor(title: string, content: string) {
