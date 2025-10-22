@@ -1,9 +1,11 @@
-export class Instructor {
-  public title: string
-  public content: string
+import { randomUUID } from "node:crypto"
 
-  constructor(title: string, content: string) {
-    this.title = title
-    this.content = content
+export class Instructor {
+  public id: string
+  public name: string
+
+  constructor(name: string, id?: string) {
+    this.id = id ?? randomUUID()
+    this.name = name
   }
 }
