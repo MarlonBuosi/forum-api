@@ -1,4 +1,5 @@
 import { Answer } from '../entities/answer'
+import { Slug } from '../entities/value-objects/slug'
 import type { AnswerRepository } from '../repositories/answers-repository'
 
 interface AnswerQuestionsUseCaseRequest {
