@@ -7,7 +7,7 @@ interface AnswerProps {
 }
 
 export class Answer extends Entity<AnswerProps> {
-  get() {
-    return this.props
+  get content() {
+    return this.props.content
   }
 }

@@ -20,7 +20,7 @@ describe('Answer Question Use Case', () => {
 
     expect(answer).toEqual(
       expect.objectContaining({
-        _id: expect.any(String),
+        _id: expect.objectContaining({ value: expect.any(String) }),
       }),
     )
   })
