@@ -10,7 +10,6 @@ const answerRepository: AnswerRepository = {
 
 describe('Answer Question Use Case', () => {
   it('should be able to answer a question', async () => {
-
     const answerUseCase = new AnswerQuestionsUseCase(answerRepository)
     const answer = await answerUseCase.execute({
       questionId: 'question-123',
