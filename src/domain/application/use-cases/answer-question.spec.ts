@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { AnswerRepository } from '../repositories/answers-repository'
 import { AnswerQuestionsUseCase } from './answer-questions'
 
-const answerRepository: AnswerRepository = {
+const fakeAnswerRepository: AnswerRepository = {
   create: async () => {
     return
   },
@@ -10,7 +10,7 @@ const answerRepository: AnswerRepository = {
 
 describe('Answer Question Use Case', () => {
   it('should be able to answer a question', async () => {
-    const answerUseCase = new AnswerQuestionsUseCase(answerRepository)
+    const answerUseCase = new AnswerQuestionsUseCase(fakeAnswerRepository)
     const answer = await answerUseCase.execute({
       questionId: 'question-123',
       instructorId: 'instructor-123',
