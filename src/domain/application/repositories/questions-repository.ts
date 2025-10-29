@@ -2,4 +2,6 @@ import type { Question } from '@/domain/enterprise/entities/question'
 
 export interface QuestionsRepository {
   create(question: Question): Promise<void>
+  fetchBySlug(slug: string): return question
+
 }
