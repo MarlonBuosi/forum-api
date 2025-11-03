@@ -1,7 +1,8 @@
 import type { Question } from '@/domain/enterprise/entities/question'
 
 export interface QuestionsRepository {
+  findById(questionId: string): Promise<Question | null>
   create(question: Question): Promise<void>
-  fetchBySlug(slug: string): return question
-
+  findBySlug(slug: string): Promise<Question | null>
+  delete(question: Question): Promise<void>
 }
