@@ -14,14 +14,28 @@ describe('Delete Question Use Case', () => {
   })
 
   it('should be able to delete a question', async () => {
-    const newQuestion = makeQuestion({}, new UniqueEntityId('question-123'))
+    const newQuestion = makeQuestion({ authorId: new UniqueEntityId('author-123') }, new UniqueEntityId('question-123'))
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
     await sut.execute({
       questionId: 'question-123',
+      authorId: 'author-123',
     })
 
     expect(inMemoryQuestionsRepository.items).toHaveLength(0)
+  })
+
+  it('should not be able to delete a question if not author', async () => {
+    const newQuestion = makeQuestion({ authorId: new UniqueEntityId('author-123') }, new UniqueEntityId('question-123'))
+
+    await inMemoryQuestionsRepository.create(newQuestion)
+
+    expect(() =>
+      sut.execute({
+        questionId: 'question-123',
+        authorId: 'author-1234',
+      })
+    ).rejects.toBeInstanceOf(Error)
   })
 })
