@@ -1,9 +1,14 @@
 import { QuestionsRepository } from "@/domain/application/repositories/questions-repository";
 import { Question } from "@/domain/enterprise/entities/question";
 
+interface EditQuestionProps {
+  title?: string
+  content?: string
+  slug?: string
+}
+
+
 export class InMemoryQuestionsRepository implements QuestionsRepository {
-
-
   public items: Question[] = [];
 
   async create(question: Question) {
@@ -36,5 +41,11 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     });
 
     this.items.splice(itemIndex, 1);
+  }
+
+  async save(question: Question) {
+    const itemIndex = this.items.findIndex(q => q.id === question.id)
+
+    this.items[itemIndex] = question
   }
 }

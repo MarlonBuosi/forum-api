@@ -57,6 +57,11 @@ export class Question extends Entity<QuestionProps> {
     this.touch()
   }
 
+  set title(title: string) {
+    this.props.title = title
+    this.touch()
+  }
+
   private touch() {
     this.props.updatedAt = new Date()
   }
