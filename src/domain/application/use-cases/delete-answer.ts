@@ -17,7 +17,7 @@ export class DeleteAnswerUseCase {
     const question = await this.answersRepository.findById(answerId)
 
     if (!question) {
-      throw new Error('Question not found.')
+      throw new Error('Answer not found.')
     }
 
     if (authorId !== question.authorId.toString()) {
