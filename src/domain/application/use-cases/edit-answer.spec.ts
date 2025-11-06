@@ -28,7 +28,6 @@ describe('Edit Question Use Case', () => {
     })
 
     expect(inMemoryAnswerRepository.items[0]).toMatchObject({
-      title: 'Updated Question Title',
       content: 'Updated question content.',
     })
   })
