@@ -1,3 +1,4 @@
+import { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionsRepository } from "@/domain/application/repositories/questions-repository";
 import { Question } from "@/domain/enterprise/entities/question";
 
@@ -9,11 +10,8 @@ interface EditQuestionProps {
 
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
-  public items: Question[] = [];
 
-  async create(question: Question) {
-    this.items.push(question);
-  }
+  public items: Question[] = [];
 
   async findBySlug(slug: string) {
     const question = this.items.find(question => question.slug.value === slug)
@@ -33,6 +31,20 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     }
 
     return question
+  }
+
+  async findManyRecent({ page }: PaginationParams) {
+    this.items.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+
+    const startIndex = (page - 1) * 20
+    const endIndex = page * 20
+    const questions = this.items.slice(startIndex, endIndex)
+
+    return questions
+  }
+
+  async create(question: Question) {
+    this.items.push(question);
   }
 
   async delete(question: Question) {
