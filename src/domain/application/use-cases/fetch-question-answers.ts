@@ -17,7 +17,6 @@ export class FetchQuestionAnswersUseCase {
     questionId,
     page,
   }: FetchQuestionAnswersUseCaseRequest): Promise<FetchQuestionAnswersUseCaseResponse> {
-    console.log('IS HERE?', page)
     const answers = await this.answersRepository.findManyByQuestionId(questionId, { page })
 
     if (!answers.length) {

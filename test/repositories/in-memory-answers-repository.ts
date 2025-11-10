@@ -35,7 +35,6 @@ export class InMemoryAnswersRepository implements AnswerRepository {
 
   async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
     const filteredAnswers = this.items.filter(answer => answer.id.toString() !== questionId)
-    console.log('FILTERED ANSWERS', filteredAnswers)
 
     const startIndex = (page - 1) * 20
     const endIndex = page * 20
