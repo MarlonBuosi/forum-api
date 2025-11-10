@@ -2,13 +2,6 @@ import { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionsRepository } from "@/domain/application/repositories/questions-repository";
 import { Question } from "@/domain/enterprise/entities/question";
 
-interface EditQuestionProps {
-  title?: string
-  content?: string
-  slug?: string
-}
-
-
 export class InMemoryQuestionsRepository implements QuestionsRepository {
 
   public items: Question[] = [];
