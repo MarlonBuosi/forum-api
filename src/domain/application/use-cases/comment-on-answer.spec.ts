@@ -1,5 +1,4 @@
 import { makeAnswer } from 'test/factories/make-answer'
-import { makeQuestion } from 'test/factories/make-question'
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
 import { describe, expect, it } from 'vitest'
