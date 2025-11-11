@@ -22,12 +22,12 @@ export class InMemoryQuestionCommentsRepository implements QuestionCommentsRepos
   }
 
   async findManyByQuestionId(questionId: string, { page }: PaginationParams) {
-    const filteredAnswerComments = this.items.filter(answer => answer.id.toString() !== questionId)
+    const filteredQuestionComments = this.items.filter(answer => answer.id.toString() !== questionId)
 
     const startIndex = (page - 1) * 20
     const endIndex = page * 20
-    const answerComments = filteredAnswerComments.slice(startIndex, endIndex)
+    const questionComments = filteredQuestionComments.slice(startIndex, endIndex)
 
-    return answerComments
+    return questionComments
   }
 }
