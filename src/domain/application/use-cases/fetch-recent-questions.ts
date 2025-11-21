@@ -1,13 +1,18 @@
+import { type Either, right } from '@/core/either'
 import type { Question } from '@/domain/enterprise/entities/question'
 import type { QuestionsRepository } from '../repositories/questions-repository'
+import type { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 type FetchRecentQuestionsUseCaseRequest = {
   page: number
 }
 
-type FetchRecentQuestionsUseCaseResponse = {
-  questions: Question[]
-}
+type FetchRecentQuestionsUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    questions: Question[]
+  }
+>
 
 export class FetchRecentQuestionsUseCase {
   constructor(private questionRepository: QuestionsRepository) { }
@@ -21,6 +26,6 @@ export class FetchRecentQuestionsUseCase {
       throw new Error('Questions not found')
     }
 
-    return { questions }
+    return right({ questions })
   }
 }

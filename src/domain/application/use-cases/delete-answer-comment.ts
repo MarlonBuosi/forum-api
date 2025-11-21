@@ -10,7 +10,7 @@ interface DeleteAnswerCommentUseCaseRequest {
 
 type DeleteAnswerCommentUseCaseResponse = Either<
   ResourceNotFoundError | NotAllowedError,
-  object
+  {}
 >
 
 export class DeleteAnswerCommentUseCase {

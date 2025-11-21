@@ -3,6 +3,7 @@ import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-
 import { describe, expect, it } from 'vitest'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { DeleteQuestionCommentUseCase } from './delete-question-comment'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
 let sut: DeleteQuestionCommentUseCase
@@ -38,11 +39,12 @@ describe('Delete Question Comment Use Case', () => {
 
     await inMemoryQuestionCommentsRepository.create(newQuestionComment)
 
-    expect(() =>
-      sut.execute({
-        questionCommentId: 'question-123',
-        authorId: 'author-1234',
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      questionCommentId: 'question-comment-123',
+      authorId: 'author-1234',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

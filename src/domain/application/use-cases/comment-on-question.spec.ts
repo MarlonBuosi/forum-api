@@ -22,16 +22,13 @@ describe('Comment on Question Use Case', () => {
   it('should be able to comment a question', async () => {
     const question = makeQuestion({})
 
-    const { questionComment } = await sut.execute({
+    const result = await sut.execute({
       authorId: 'author-123',
       content: 'This is an example question content.',
       questionId: question.id.toString(),
     })
 
-    expect(questionComment).toEqual(
-      expect.objectContaining({
-        _id: expect.objectContaining({ value: expect.any(String) }),
-      }),
-    )
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryQuestionCommentsRepository.items[0]).toEqual(result.isRight() && result.value.questionComment)
   })
 })

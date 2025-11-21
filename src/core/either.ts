@@ -1,3 +1,4 @@
+// Error
 export class Left<L, R> {
   readonly value: L
 
@@ -5,24 +6,24 @@ export class Left<L, R> {
     this.value = value
   }
 
+  isRight(): this is Right<L, R> {
+    return false
+  }
+
   isLeft(): this is Left<L, R> {
     return true
   }
-
-  isRight(): this is Right<R, L> {
-    return false
-  }
 }
 
-export class Right<R, L> {
+// Success
+export class Right<L, R> {
   readonly value: R
-
 
   constructor(value: R) {
     this.value = value
   }
 
-  isRight(): this is Right<R, L> {
+  isRight(): this is Right<L, R> {
     return true
   }
 
@@ -31,7 +32,7 @@ export class Right<R, L> {
   }
 }
 
-export type Either<L, R> = Left<L, R> | Right<R, L>
+export type Either<L, R> = Left<L, R> | Right<L, R>
 
 export const left = <L, R>(value: L): Either<L, R> => {
   return new Left(value)

@@ -1,14 +1,19 @@
+import { type Either, left, right } from '@/core/either'
 import type { QuestionComment } from '@/domain/enterprise/entities/question-comment'
 import type { QuestionCommentsRepository } from '../repositories/question-comments-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 type ListQuestionCommentsUseCaseRequest = {
   questionId: string
   page: number
 }
 
-type ListQuestionCommentsUseCaseResponse = {
-  questionComments: QuestionComment[]
-}
+type ListQuestionCommentsUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    questionComments: QuestionComment[]
+  }
+>
 
 export class FetchQuestionCommentsUseCase {
   constructor(private questionCommentsRepository: QuestionCommentsRepository) { }
@@ -23,9 +28,9 @@ export class FetchQuestionCommentsUseCase {
       })
 
     if (!questionComments.length) {
-      throw new Error('Answer Comments not found')
+      return left(new ResourceNotFoundError())
     }
 
-    return { questionComments }
+    return right({ questionComments })
   }
 }

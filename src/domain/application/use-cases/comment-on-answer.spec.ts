@@ -21,13 +21,14 @@ describe('Comment on Answer Use Case', () => {
   it('should be able to comment a answer', async () => {
     const question = makeAnswer({})
 
-    const { answerComment } = await sut.execute({
+    const result = await sut.execute({
       authorId: 'author-123',
       content: 'This is an example question content.',
       answerId: question.id.toString(),
     })
 
-    expect(answerComment).toEqual(
+    expect(result.isRight()).toBe(true)
+    expect(result.isRight() && result.value.answerComment).toEqual(
       expect.objectContaining({
         _id: expect.objectContaining({ value: expect.any(String) }),
       }),

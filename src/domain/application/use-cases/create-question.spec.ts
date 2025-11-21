@@ -14,18 +14,13 @@ describe('Create Question Use Case', () => {
   })
 
   it('should be able to create a question', async () => {
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       authorId: 'author-123',
       title: 'Example Question Title',
       content: 'This is an example question content.',
     })
 
-    expect(question).toEqual(
-      expect.objectContaining({
-        _id: expect.objectContaining({ value: expect.any(String) }),
-      }),
-    )
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id)
-
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
   })
 })
