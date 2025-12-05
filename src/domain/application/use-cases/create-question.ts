@@ -1,7 +1,8 @@
 import { type Either, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Question } from '@/domain/enterprise/entities/question'
-import { QuestionAttachments } from '@/domain/enterprise/entities/question-attachments'
+import { QuestionAttachment } from '@/domain/enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '@/domain/enterprise/entities/question-attachment-list'
 import type { QuestionsRepository } from '../repositories/questions-repository'
 
 type CreateQuestionUseCaseRequest = {
@@ -34,13 +35,13 @@ export class CreateQuestionUseCase {
     })
 
     const questionAttachments = attachmentsIds?.map((attachment) => {
-      return QuestionAttachments.create({
+      return QuestionAttachment.create({
         attachmentId: new UniqueEntityId(attachment),
         questionId: question.id,
       })
     })
 
-    question.attachments = questionAttachments ?? []
+    question.attachments = new QuestionAttachmentList(questionAttachments)
 
     await this.questionRepository.create(question)
 

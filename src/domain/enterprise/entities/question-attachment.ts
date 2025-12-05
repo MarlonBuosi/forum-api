@@ -1,12 +1,12 @@
 import { AggregateRoot } from '@/core/entities/aggregate-root'
 import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-interface QuestionAttachmentsProps {
+export interface QuestionAttachmentProps {
   questionId: UniqueEntityId
   attachmentId: UniqueEntityId
 }
 
-export class QuestionAttachments extends AggregateRoot<QuestionAttachmentsProps> {
+export class QuestionAttachment extends AggregateRoot<QuestionAttachmentProps> {
   get questionId() {
     return this.props.questionId
   }
@@ -15,8 +15,8 @@ export class QuestionAttachments extends AggregateRoot<QuestionAttachmentsProps>
     return this.props.attachmentId
   }
 
-  static create(props: QuestionAttachmentsProps, id?: UniqueEntityId) {
-    const questionAttachments = new QuestionAttachments(props, id)
+  static create(props: QuestionAttachmentProps, id?: UniqueEntityId) {
+    const questionAttachments = new QuestionAttachment(props, id)
 
     return questionAttachments
   }
