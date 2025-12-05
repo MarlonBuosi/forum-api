@@ -1,5 +1,6 @@
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { describe, expect, it } from 'vitest'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { CreateQuestionUseCase } from './create-question'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
@@ -8,9 +9,7 @@ let sut: CreateQuestionUseCase
 describe('Create Question Use Case', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
-    sut = new CreateQuestionUseCase(
-      inMemoryQuestionsRepository,
-    )
+    sut = new CreateQuestionUseCase(inMemoryQuestionsRepository)
   })
 
   it('should be able to create a question', async () => {
@@ -18,9 +17,15 @@ describe('Create Question Use Case', () => {
       authorId: 'author-123',
       title: 'Example Question Title',
       content: 'This is an example question content.',
+      attachmentsIds: ['attach-1', 'attach-2'],
     })
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2)
+    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual([
+      expect.objectContaining({ attachmentId: new UniqueEntityId('attach-1') }),
+      expect.objectContaining({ attachmentId: new UniqueEntityId('attach-2') }),
+    ])
   })
 })
