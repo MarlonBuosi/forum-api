@@ -4,6 +4,7 @@ import { QuestionAttachmentsRepository } from "@/domain/application/repositories
 
 export class InMemoryQuestionAttachmentsRepository implements QuestionAttachmentsRepository {
 
+
   public items: QuestionAttachment[] = []
 
   async findManyByQuestionId(questionId: string) {
@@ -11,5 +12,12 @@ export class InMemoryQuestionAttachmentsRepository implements QuestionAttachment
 
 
     return filteredQuestionAttachments
+  }
+
+  async deleteManyByQuestionId(questionId: string) {
+    console.log('dentro do metodo aAAAAAAAAAAAAAAAAAAAAAAA', questionId)
+    const questionAttachments = this.items.filter(attachment => attachment.questionId.toString() !== questionId)
+
+    this.items = questionAttachments
   }
 }

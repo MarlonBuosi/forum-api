@@ -1,6 +1,7 @@
 import { makeAnswer } from 'test/factories/make-answer'
 import { makeQuestion } from 'test/factories/make-question'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { describe, expect, it } from 'vitest'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
@@ -9,13 +10,20 @@ import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryAnswerRepository: InMemoryAnswersRepository
+let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let sut: ChooseQuestionBestAnswerUseCase
 
 describe('Choose Question Best Answer Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
+    inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     inMemoryAnswerRepository = new InMemoryAnswersRepository()
-    sut = new ChooseQuestionBestAnswerUseCase(inMemoryAnswerRepository, inMemoryQuestionsRepository)
+    sut = new ChooseQuestionBestAnswerUseCase(
+      inMemoryAnswerRepository,
+      inMemoryQuestionsRepository,
+    )
   })
 
   it('should be able to create a question', async () => {
@@ -27,7 +35,10 @@ describe('Choose Question Best Answer Use Case', () => {
     await inMemoryQuestionsRepository.create(newQuestion)
 
     const newAnswer = makeAnswer(
-      { authorId: new UniqueEntityId('author-123'), questionId: newQuestion.id },
+      {
+        authorId: new UniqueEntityId('author-123'),
+        questionId: newQuestion.id,
+      },
       new UniqueEntityId('answer-123'),
     )
 
@@ -38,8 +49,10 @@ describe('Choose Question Best Answer Use Case', () => {
       authorId: 'author-123',
     })
 
-    expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(newAnswer.id)
-  });
+    expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(
+      newAnswer.id,
+    )
+  })
 
   it('should not be able to choose the best answer if not author', async () => {
     const newQuestion = makeQuestion(
@@ -49,7 +62,10 @@ describe('Choose Question Best Answer Use Case', () => {
     await inMemoryQuestionsRepository.create(newQuestion)
 
     const newAnswer = makeAnswer(
-      { authorId: new UniqueEntityId('author-123'), questionId: newQuestion.id },
+      {
+        authorId: new UniqueEntityId('author-123'),
+        questionId: newQuestion.id,
+      },
       new UniqueEntityId('answer-123'),
     )
     await inMemoryAnswerRepository.create(newAnswer)
@@ -61,5 +77,5 @@ describe('Choose Question Best Answer Use Case', () => {
 
     expect(result.isLeft()).toBe(true)
     expect(result.value).toBeInstanceOf(NotAllowedError)
-  });
-});
+  })
+})
