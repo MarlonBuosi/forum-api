@@ -13,8 +13,8 @@ let sut: DeleteQuestionUseCase
 
 describe('Delete Question Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
     inMemoryQuestionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
     sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository)
   })
 
@@ -43,6 +43,7 @@ describe('Delete Question Use Case', () => {
     })
 
     expect(inMemoryQuestionsRepository.items).toHaveLength(0)
+    expect(inMemoryQuestionAttachmentsRepository.items).toHaveLength(0)
   })
 
   it('should not be able to delete a question if not author', async () => {
