@@ -1,4 +1,3 @@
-import { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionAttachment } from "@/domain/enterprise/entities/question-attachment";
 import { QuestionAttachmentsRepository } from "@/domain/application/repositories/question-attachments-repository";
 
@@ -15,7 +14,6 @@ export class InMemoryQuestionAttachmentsRepository implements QuestionAttachment
   }
 
   async deleteManyByQuestionId(questionId: string) {
-    console.log('dentro do metodo aAAAAAAAAAAAAAAAAAAAAAAA', questionId)
     const questionAttachments = this.items.filter(attachment => attachment.questionId.toString() !== questionId)
 
     this.items = questionAttachments

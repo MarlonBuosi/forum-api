@@ -52,7 +52,6 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     this.items.splice(itemIndex, 1);
 
-    console.log('chamada do metodo', this.questionAttachmentsRepository)
     this.questionAttachmentsRepository.deleteManyByQuestionId(question.id.toString())
   }
 

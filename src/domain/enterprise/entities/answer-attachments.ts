@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@/core/entities/aggregate-root'
 import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-interface AnswerAttachmentsProps {
+export interface AnswerAttachmentsProps {
   answerId: UniqueEntityId
   attachmentId: UniqueEntityId
 }
