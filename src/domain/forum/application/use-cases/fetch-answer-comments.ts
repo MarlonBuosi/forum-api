@@ -1,5 +1,5 @@
 import { type Either, right } from '@/core/either'
-import type { AnswerComment } from '@/domain/enterprise/entities/answer-comment'
+import type { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
 import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository'
 import type { ResourceNotFoundError } from './errors/resource-not-found-error'
 

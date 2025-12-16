@@ -1,8 +1,8 @@
 import { type Either, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Answer } from '@/domain/enterprise/entities/answer'
-import { AnswerAttachmentList } from '@/domain/enterprise/entities/answer-attachment-list'
-import { AnswerAttachments } from '@/domain/enterprise/entities/answer-attachments'
+import { Answer } from '@/domain/forum/enterprise/entities/answer'
+import { AnswerAttachmentList } from '@/domain/forum/enterprise/entities/answer-attachment-list'
+import { AnswerAttachments } from '@/domain/forum/enterprise/entities/answer-attachments'
 import type { AnswerRepository } from '../repositories/answers-repository'
 
 interface AnswerQuestionsUseCaseRequest {

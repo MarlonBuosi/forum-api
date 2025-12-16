@@ -1,5 +1,5 @@
 import { type Either, right } from '@/core/either'
-import type { Question } from '@/domain/enterprise/entities/question'
+import type { Question } from '@/domain/forum/enterprise/entities/question'
 import type { QuestionsRepository } from '../repositories/questions-repository'
 import type { ResourceNotFoundError } from './errors/resource-not-found-error'
 

@@ -1,8 +1,8 @@
 import { type Either, right } from '@/core/either'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Question } from '@/domain/enterprise/entities/question'
-import { QuestionAttachment } from '@/domain/enterprise/entities/question-attachment'
-import { QuestionAttachmentList } from '@/domain/enterprise/entities/question-attachment-list'
+import { Question } from '@/domain/forum/enterprise/entities/question'
+import { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment'
+import { QuestionAttachmentList } from '@/domain/forum/enterprise/entities/question-attachment-list'
 import type { QuestionsRepository } from '../repositories/questions-repository'
 
 type CreateQuestionUseCaseRequest = {

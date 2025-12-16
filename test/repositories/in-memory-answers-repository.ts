@@ -1,8 +1,8 @@
 import { PaginationParams } from "@/core/repositories/pagination-params";
-import { AnswerRepository } from "@/domain/application/repositories/answers-repository";
-import { Answer } from "@/domain/enterprise/entities/answer";
+import { AnswerRepository } from "@/domain/forum/application/repositories/answers-repository";
+import { Answer } from "@/domain/forum/enterprise/entities/answer";
 import { InMemoryAnswerAttachmentsRepository } from "./in-memory-answer-attachments-repository";
-import { AnswerAttachmentsRepository } from "@/domain/application/repositories/answer-attachments-repository";
+import { AnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository";
 
 export class InMemoryAnswersRepository implements AnswerRepository {
   public items: Answer[] = [];
