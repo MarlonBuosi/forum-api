@@ -1,7 +1,7 @@
 import { type Either, right } from '@/core/either'
 import type { Question } from '@/domain/forum/enterprise/entities/question'
 import type { QuestionsRepository } from '../repositories/questions-repository'
-import type { ResourceNotFoundError } from './errors/resource-not-found-error'
+import type { ResourceNotFoundError } from '../../../../core/errors/errors/resource-not-found-error'
 
 type FetchRecentQuestionsUseCaseRequest = {
   page: number

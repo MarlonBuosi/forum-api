@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { SendNotificationUseCase } from './send-notification'
 import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-send-notification-repository'
 

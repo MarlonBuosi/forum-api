@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import type { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import type { Optional } from '@/core/types/optional'
 
-type NotificationProps = {
+export type NotificationProps = {
   recipientId: UniqueEntityId
   title: string
   content: string
@@ -29,6 +29,10 @@ export class Notification extends Entity<NotificationProps> {
 
   get readAt() {
     return this.props.readAt
+  }
+
+  read() {
+    return this.props.readAt = new Date()
   }
 
   static create(
