@@ -24,7 +24,6 @@ describe('Read Notification Use Case', () => {
       notificationId: '1',
       recipientId: '1'
     })
-    console.log(result)
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryNotificationsRepository.items[0].readAt).toEqual(expect.any(Date))
