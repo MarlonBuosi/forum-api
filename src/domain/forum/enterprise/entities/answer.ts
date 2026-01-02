@@ -61,7 +61,11 @@ export class Answer extends AggregateRoot<AnswerProps> {
     id?: UniqueEntityId,
   ) {
     const answer = new Answer(
-      { ...props, createdAt: props.createdAt ?? new Date(), attachments: props.attachments ?? new AnswerAttachmentList() },
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+        attachments: props.attachments ?? new AnswerAttachmentList(),
+      },
       id,
     )
 

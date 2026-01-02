@@ -22,7 +22,7 @@ export class CommentOnAnswerUseCase {
   constructor(
     private answerRepository: AnswerRepository,
     private answerCommentRepository: AnswerCommentsRepository,
-  ) { }
+  ) {}
 
   async execute({
     authorId,

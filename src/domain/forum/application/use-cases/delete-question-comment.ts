@@ -14,7 +14,7 @@ type DeleteQuestionCommentUseCaseResponse = Either<
 >
 
 export class DeleteQuestionCommentUseCase {
-  constructor(private questionCommentsRepository: QuestionCommentsRepository) { }
+  constructor(private questionCommentsRepository: QuestionCommentsRepository) {}
 
   async execute({
     questionCommentId,
@@ -25,7 +25,6 @@ export class DeleteQuestionCommentUseCase {
 
     if (!questionComment) {
       return left(new ResourceNotFoundError())
-
     }
 
     if (questionComment.authorId.toString() !== authorId) {

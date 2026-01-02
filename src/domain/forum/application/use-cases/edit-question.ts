@@ -27,7 +27,7 @@ export class EditQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
     private questionAttachmentRepository: QuestionAttachmentsRepository,
-  ) { }
+  ) {}
 
   async execute({
     questionId,

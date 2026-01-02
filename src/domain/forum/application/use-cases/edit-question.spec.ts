@@ -13,7 +13,9 @@ let sut: EditQuestionUseCase
 
 describe('Edit Question Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(inMemoryQuestionAttachmentsRepository)
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
     sut = new EditQuestionUseCase(
@@ -29,7 +31,16 @@ describe('Edit Question Use Case', () => {
     )
 
     await inMemoryQuestionsRepository.create(newQuestion)
-    inMemoryQuestionAttachmentsRepository.items.push(makeQuestionAttachment({ questionId: newQuestion.id, attachmentId: new UniqueEntityId('attachment-1') }), makeQuestionAttachment({ questionId: newQuestion.id, attachmentId: new UniqueEntityId('attachment-2') }))
+    inMemoryQuestionAttachmentsRepository.items.push(
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityId('attachment-1'),
+      }),
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityId('attachment-2'),
+      }),
+    )
 
     await sut.execute({
       questionId: 'question-123',
@@ -44,13 +55,20 @@ describe('Edit Question Use Case', () => {
       content: 'Updated question content.',
     })
 
-    expect(inMemoryQuestionsRepository.items[0].attachments.currentItems).toHaveLength(2)
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
 
-    expect(inMemoryQuestionsRepository.items[0].attachments.currentItems).toEqual([
-      expect.objectContaining({ attachmentId: new UniqueEntityId('attachment-1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityId('attachment-3') })
-    ],
-    )
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toEqual([
+      expect.objectContaining({
+        attachmentId: new UniqueEntityId('attachment-1'),
+      }),
+      expect.objectContaining({
+        attachmentId: new UniqueEntityId('attachment-3'),
+      }),
+    ])
   })
 
   it('should not be able to delete a question if not author', async () => {

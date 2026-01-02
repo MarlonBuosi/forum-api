@@ -15,7 +15,9 @@ describe('Edit Question Use Case', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
-    inMemoryAnswerRepository = new InMemoryAnswersRepository(inMemoryAnswerAttachmentsRepository)
+    inMemoryAnswerRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentsRepository,
+    )
     sut = new EditAnswerUseCase(
       inMemoryAnswerRepository,
       inMemoryAnswerAttachmentsRepository,
@@ -45,18 +47,23 @@ describe('Edit Question Use Case', () => {
       questionId: 'question-123',
       authorId: 'author-123',
       content: 'Updated question content.',
-      attachmentIds: ['attachment-1', 'attachment-3']
+      attachmentIds: ['attachment-1', 'attachment-3'],
     })
 
     expect(inMemoryAnswerRepository.items[0]).toMatchObject({
       content: 'Updated question content.',
     })
-    expect(inMemoryAnswerRepository.items[0].attachments.currentItems).toHaveLength(2)
+    expect(
+      inMemoryAnswerRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
     expect(inMemoryAnswerRepository.items[0].attachments.currentItems).toEqual([
-      expect.objectContaining({ attachmentId: new UniqueEntityId('attachment-1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityId('attachment-3') })
-    ],
-    )
+      expect.objectContaining({
+        attachmentId: new UniqueEntityId('attachment-1'),
+      }),
+      expect.objectContaining({
+        attachmentId: new UniqueEntityId('attachment-3'),
+      }),
+    ])
   })
 
   it('should not be able to delete a question if not author', async () => {
@@ -71,7 +78,7 @@ describe('Edit Question Use Case', () => {
       questionId: 'question-123',
       authorId: 'author-1234',
       content: 'Updated question content.',
-      attachmentIds: []
+      attachmentIds: [],
     })
 
     expect(result.isLeft()).toBe(true)

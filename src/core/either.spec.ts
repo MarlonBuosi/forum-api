@@ -19,5 +19,4 @@ test('error result', () => {
 
   expect(errorResult.isLeft()).toBe(true)
   expect(errorResult.isRight()).toBe(false)
-
 })

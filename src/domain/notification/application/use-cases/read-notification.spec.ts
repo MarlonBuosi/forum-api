@@ -10,34 +10,40 @@ let sut: ReadNotificationUseCase
 
 describe('Read Notification Use Case', () => {
   beforeEach(() => {
-    inMemoryNotificationsRepository = new InMemoryNotificationsRepository(
-    )
+    inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
     sut = new ReadNotificationUseCase(inMemoryNotificationsRepository)
   })
 
   it('should be able to read a notification', async () => {
-    const notification = makeNotification({ recipientId: new UniqueEntityId('1') }, new UniqueEntityId('1'))
+    const notification = makeNotification(
+      { recipientId: new UniqueEntityId('1') },
+      new UniqueEntityId('1'),
+    )
 
     await inMemoryNotificationsRepository.create(notification)
 
     const result = await sut.execute({
       notificationId: '1',
-      recipientId: '1'
+      recipientId: '1',
     })
 
     expect(result.isRight()).toBe(true)
-    expect(inMemoryNotificationsRepository.items[0].readAt).toEqual(expect.any(Date))
+    expect(inMemoryNotificationsRepository.items[0].readAt).toEqual(
+      expect.any(Date),
+    )
   })
 
   it('should not be able to read a notification if not author', async () => {
-    const notification = makeNotification({ recipientId: new UniqueEntityId('1') }, new UniqueEntityId('1'))
-
+    const notification = makeNotification(
+      { recipientId: new UniqueEntityId('1') },
+      new UniqueEntityId('1'),
+    )
 
     await inMemoryNotificationsRepository.create(notification)
 
     const result = await sut.execute({
       notificationId: '1',
-      recipientId: '2'
+      recipientId: '2',
     })
 
     expect(result.isLeft()).toBe(true)

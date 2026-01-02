@@ -17,14 +17,14 @@ type ReadNotificationUseCaseResponse = Either<
 >
 
 export class ReadNotificationUseCase {
-  constructor(private notificationRepository: NotificationsRepository) { }
+  constructor(private notificationRepository: NotificationsRepository) {}
 
   async execute({
     notificationId,
-    recipientId
+    recipientId,
   }: ReadNotificationUseCaseRequest): Promise<ReadNotificationUseCaseResponse> {
-    const notification = await this.notificationRepository.findById(notificationId)
-
+    const notification =
+      await this.notificationRepository.findById(notificationId)
 
     if (!notification) {
       return left(new ResourceNotFoundError())

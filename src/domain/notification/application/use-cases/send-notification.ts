@@ -17,7 +17,7 @@ export type SendNotificationUseCaseResponse = Either<
 >
 
 export class SendNotificationUseCase {
-  constructor(private notificationRepository: NotificationsRepository) { }
+  constructor(private notificationRepository: NotificationsRepository) {}
 
   async execute({
     recipientId,
@@ -29,7 +29,6 @@ export class SendNotificationUseCase {
       title,
       content,
     })
-
 
     await this.notificationRepository.create(notification)
 

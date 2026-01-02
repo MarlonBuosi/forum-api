@@ -1,4 +1,3 @@
-
 export class Slug {
   public value: string
 
@@ -31,4 +30,3 @@ export class Slug {
     return new Slug(slugText)
   }
 }
-

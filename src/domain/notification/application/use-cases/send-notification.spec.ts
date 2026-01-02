@@ -7,8 +7,7 @@ let sut: SendNotificationUseCase
 
 describe('Send Notification Use Case', () => {
   beforeEach(() => {
-    inMemoryNotificationsRepository = new InMemoryNotificationsRepository(
-    )
+    inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
     sut = new SendNotificationUseCase(inMemoryNotificationsRepository)
   })
 
@@ -20,6 +19,8 @@ describe('Send Notification Use Case', () => {
     })
 
     expect(result.isRight()).toBe(true)
-    expect(inMemoryNotificationsRepository.items[0]).toEqual(result.value?.notification)
+    expect(inMemoryNotificationsRepository.items[0]).toEqual(
+      result.value?.notification,
+    )
   })
 })

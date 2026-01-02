@@ -16,7 +16,7 @@ type ListAnswerCommentsUseCaseResponse = Either<
 >
 
 export class FetchAnswerCommentsUseCase {
-  constructor(private AnswerCommentsRepository: AnswerCommentsRepository) { }
+  constructor(private AnswerCommentsRepository: AnswerCommentsRepository) {}
 
   async execute({
     answerId,
